@@ -1,0 +1,97 @@
+{
+  "flow_name": "Citizen Services Flow",
+  "description": "Simulated Dialogflow CX flow for government service 
+support",
+  "start_page": "Welcome",
+  "pages": [
+    {
+      "name": "Welcome",
+      "entry_fulfillment": {
+        "messages": ["Welcome to the City Services Assistant! How can I 
+help you today?"]
+      },
+      "routes": [
+        {
+          "intent": "GreetUser",
+          "target_page": "GreetingResponse"
+        },
+        {
+          "intent": "CheckServiceStatus",
+          "target_page": "ServiceStatus"
+        },
+        {
+          "intent": "EscalateToAgent",
+          "target_page": "Escalation"
+        }
+      ]
+    },
+    {
+      "name": "GreetingResponse",
+      "entry_fulfillment": {
+        "webhook_tag": "greeting"
+      },
+      "transition": {
+        "target_page": "Welcome"
+      }
+    },
+    {
+      "name": "ServiceStatus",
+      "entry_fulfillment": {
+        "webhook_tag": "check_service_status"
+      },
+      "transition": {
+        "target_page": "Welcome"
+      }
+    },
+    {
+      "name": "Escalation",
+      "entry_fulfillment": {
+        "webhook_tag": "escalate_to_agent"
+      },
+      "transition": {
+        "target_page": "End"
+      }
+    },
+    {
+      "name": "End",
+      "entry_fulfillment": {
+        "messages": ["You are now being connected to a human agent. Thank 
+you."]
+      }
+    }
+  ],
+  "intents": [
+    {
+      "name": "GreetUser",
+      "training_phrases": [
+        "hello",
+        "hi",
+        "hey there"
+      ]
+    },
+    {
+      "name": "CheckServiceStatus",
+      "training_phrases": [
+        "is trash pickup on schedule?",
+        "what’s the status of recycling?",
+        "is street cleaning happening today?"
+      ],
+      "parameters": [
+        {
+          "name": "service_type",
+          "entity_type": "custom_service_type",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "EscalateToAgent",
+      "training_phrases": [
+        "I want to talk to someone",
+        "can you transfer me?",
+        "I need a real person"
+      ]
+    }
+  ]
+}
+
